@@ -1,27 +1,32 @@
 package com.luizguilherme.meeting_management.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
 
-import java.util.Set;
-
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "roles")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 50)
-    private String name;
+    @Column(name = "role_name", nullable = false, unique = true)
+    private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    public enum RoleName {
+        ADMIN, USER, MANAGER, GUEST
+    }
+
+    public Role(RoleName roleName) {
+        this.roleName = roleName.name();
+    }
 }

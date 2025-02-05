@@ -53,7 +53,7 @@ public class UserService {
 
     private boolean hasRolePermission(User user, String roleName) {
         for (Role role : user.getRoles()) {
-            if (role.getName().equalsIgnoreCase(roleName)) {
+            if (role.getRoleName().equalsIgnoreCase(roleName)) {
                 return true;
             }
         }

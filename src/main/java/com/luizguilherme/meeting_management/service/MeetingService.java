@@ -22,7 +22,6 @@ public class MeetingService {
     private UserRepository userRepository;
 
     public Meeting scheduleMeeting(Meeting meeting) {
-        // Validação adicional para verificar a disponibilidade da sala
         List<Meeting> conflictingMeetings = meetingRepository.findByRoomAndStartTimeBetween(
                 meeting.getRoom(),
                 meeting.getStartTime(),
@@ -44,7 +43,6 @@ public class MeetingService {
         Meeting meeting = meetingRepository.findById(meetingId)
                 .orElseThrow(() -> new RuntimeException("Reunião não encontrada."));
 
-        // Verificar se o usuário tem permissão para cancelar a reunião
         boolean hasAdminRole = currentUser.getRoles().stream()
                 .anyMatch(role -> Role.RoleName.ADMIN.name().equals(role.getRoleName()));
 

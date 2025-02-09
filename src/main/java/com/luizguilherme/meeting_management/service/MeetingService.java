@@ -1,16 +1,14 @@
 package com.luizguilherme.meeting_management.service;
 
-
 import com.luizguilherme.meeting_management.model.Meeting;
-import com.luizguilherme.meeting_management.model.Role;
 import com.luizguilherme.meeting_management.model.User;
 import com.luizguilherme.meeting_management.repository.MeetingRepository;
-import com.luizguilherme.meeting_management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MeetingService {
@@ -18,20 +16,7 @@ public class MeetingService {
     @Autowired
     private MeetingRepository meetingRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
     public Meeting scheduleMeeting(Meeting meeting) {
-        List<Meeting> conflictingMeetings = meetingRepository.findByRoomAndStartTimeBetween(
-                meeting.getRoom(),
-                meeting.getStartTime(),
-                meeting.getEndTime()
-        );
-
-        if (!conflictingMeetings.isEmpty()) {
-            throw new RuntimeException("A sala já está reservada neste horário.");
-        }
-
         return meetingRepository.save(meeting);
     }
 
@@ -39,17 +24,23 @@ public class MeetingService {
         return meetingRepository.findByRoomAndStartTimeBetween(room, startTime, endTime);
     }
 
-    public void cancelMeeting(Long meetingId, User currentUser) {
-        Meeting meeting = meetingRepository.findById(meetingId)
-                .orElseThrow(() -> new RuntimeException("Reunião não encontrada."));
+    public void cancelMeeting(Long id, User currentUser) {
+        Optional<Meeting> meetingOptional = meetingRepository.findById(id);
 
-        boolean hasAdminRole = currentUser.getRoles().stream()
-                .anyMatch(role -> Role.RoleName.ADMIN.name().equals(role.getRoleName()));
-
-        if (!meeting.getOrganizer().equals(currentUser) && !hasAdminRole) {
-            throw new RuntimeException("Você não tem permissão para cancelar esta reunião.");
+        if (meetingOptional.isPresent()) {
+            Meeting meeting = meetingOptional.get();
+            if (meeting.getOrganizer().equals(currentUser) || isUserAdmin(currentUser)) {
+                meetingRepository.deleteById(id);
+            } else {
+                throw new RuntimeException("Você não tem permissão para cancelar esta reunião");
+            }
+        } else {
+            throw new RuntimeException("Reunião não encontrada");
         }
+    }
 
-        meetingRepository.delete(meeting);
+    public boolean isUserAdmin(User currentUser) {
+        return currentUser.getRoles().stream()
+                .anyMatch(role -> role.getRoleName().equals("ADMIN"));
     }
 }

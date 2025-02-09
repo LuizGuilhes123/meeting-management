@@ -19,14 +19,15 @@ public class Role {
     @Column(name = "role_id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, unique = true)
-    private String roleName;
+    private RoleName roleName;
 
     public enum RoleName {
         ADMIN, USER, MANAGER, GUEST
     }
 
     public Role(RoleName roleName) {
-        this.roleName = roleName.name();
+        this.roleName = roleName;
     }
 }

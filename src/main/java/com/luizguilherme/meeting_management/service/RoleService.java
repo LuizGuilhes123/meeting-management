@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.service;
 
-
 import com.luizguilherme.meeting_management.model.Role;
+import com.luizguilherme.meeting_management.model.Role.RoleName;
 import com.luizguilherme.meeting_management.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,12 @@ public class RoleService {
     }
 
     public Role getRoleByName(String name) {
-        return roleRepository.findByName(name);
+        try {
+            RoleName roleName = RoleName.valueOf(name.toUpperCase());
+            return roleRepository.findByRoleName(roleName);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 
     public void deleteRole(Long id) {

@@ -37,7 +37,7 @@ public class ReservationService {
                     reservation.setStartTime(updatedReservation.getStartTime());
                     reservation.setEndTime(updatedReservation.getEndTime());
                     reservation.setRoom(updatedReservation.getRoom());
-                    reservation.setUser(updatedReservation.getUser());
+                    reservation.setReservedBy(updatedReservation.getReservedBy()); // Substituindo o setUser pelo setReservedBy
                     return reservationRepository.save(reservation);
                 })
                 .orElseThrow(() -> new RuntimeException("Reserva não encontrada"));

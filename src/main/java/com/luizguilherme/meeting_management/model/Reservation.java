@@ -1,16 +1,15 @@
 package com.luizguilherme.meeting_management.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "reservations")
 public class Reservation {
 

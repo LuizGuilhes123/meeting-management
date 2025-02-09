@@ -2,13 +2,14 @@ package com.luizguilherme.meeting_management.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "meetings")
 public class Meeting {
 

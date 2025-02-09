@@ -3,11 +3,11 @@ package com.luizguilherme.meeting_management.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "rooms")
 public class Room {
 

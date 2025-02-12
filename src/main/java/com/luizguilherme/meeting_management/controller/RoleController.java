@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.controller;
 
-
-import com.luizguilherme.meeting_management.model.Role;
+import com.luizguilherme.meeting_management.dto.RoleRequestDTO;
+import com.luizguilherme.meeting_management.dto.RoleResponseDTO;
 import com.luizguilherme.meeting_management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,19 +17,19 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping
-    public List<Role> getAllRoles() {
+    public List<RoleResponseDTO> getAllRoles() {
         return roleService.getAllRoles();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Role> getRoleById(@PathVariable Long id) {
-        Role role = roleService.getRoleById(id);
+    public ResponseEntity<RoleResponseDTO> getRoleById(@PathVariable Long id) {
+        RoleResponseDTO role = roleService.getRoleById(id);
         return role != null ? ResponseEntity.ok(role) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Role createRole(@RequestBody Role role) {
-        return roleService.saveRole(role);
+    public RoleResponseDTO createRole(@RequestBody RoleRequestDTO roleRequestDTO) {
+        return roleService.saveRole(roleRequestDTO);
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,8 @@
 package com.luizguilherme.meeting_management.controller;
 
-import com.luizguilherme.meeting_management.model.Room;
+import com.luizguilherme.meeting_management.dto.RoomRequestDTO;
+import com.luizguilherme.meeting_management.dto.RoomResponseDTO;
+import com.luizguilherme.meeting_management.mapper.RoomMapper;
 import com.luizguilherme.meeting_management.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,34 +17,39 @@ import java.util.List;
 public class RoomController {
 
     @Autowired
-    public RoomService roomService;
+    private RoomService roomService;
+
+    @Autowired
+    private RoomMapper roomMapper;
 
     @GetMapping
-    public List<Room> getAllRooms() {
-        return roomService.getAllRooms();
+    public List<RoomResponseDTO> getAllRooms() {
+        return roomMapper.toRoomResponseDTOList(roomService.getAllRooms());
     }
 
     @GetMapping("/paginated")
-    public Page<Room> getAllRoomsPaginated(Pageable pageable) {
-        return roomService.getAllRoomsPaginated(pageable);
+    public Page<RoomResponseDTO> getAllRoomsPaginated(Pageable pageable) {
+        return roomService.getAllRoomsPaginated(pageable)
+                .map(roomMapper::toRoomResponseDTO);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Long id) {
+    public ResponseEntity<RoomResponseDTO> getRoomById(@PathVariable Long id) {
         return roomService.getRoomById(id)
-                .map(ResponseEntity::ok)
+                .map(room -> ResponseEntity.ok(roomMapper.toRoomResponseDTO(room)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Room createRoom(@RequestBody Room room) {
-        return roomService.createRoom(room);
+    public ResponseEntity<RoomResponseDTO> createRoom(@RequestBody RoomRequestDTO roomRequestDTO) {
+        RoomResponseDTO createdRoom = roomMapper.toRoomResponseDTO(roomService.createRoom(roomRequestDTO));
+        return ResponseEntity.ok(createdRoom);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room roomDetails) {
+    public ResponseEntity<RoomResponseDTO> updateRoom(@PathVariable Long id, @RequestBody RoomRequestDTO roomRequestDTO) {
         try {
-            Room updatedRoom = roomService.updateRoom(id, roomDetails);
+            RoomResponseDTO updatedRoom = roomMapper.toRoomResponseDTO(roomService.updateRoom(id, roomRequestDTO));
             return ResponseEntity.ok(updatedRoom);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

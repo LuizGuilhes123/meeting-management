@@ -1,5 +1,7 @@
 package com.luizguilherme.meeting_management.service;
 
+import com.luizguilherme.meeting_management.dto.RoomRequestDTO;
+import com.luizguilherme.meeting_management.mapper.RoomMapper;
 import com.luizguilherme.meeting_management.model.Room;
 import com.luizguilherme.meeting_management.repository.ReservationRepository;
 import com.luizguilherme.meeting_management.repository.RoomRepository;
@@ -21,6 +23,9 @@ public class RoomService {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private RoomMapper roomMapper;
+
     public List<Room> getAllRooms() {
         return roomRepository.findAll();
     }
@@ -33,16 +38,17 @@ public class RoomService {
         return roomRepository.findById(id);
     }
 
-    public Room createRoom (Room room) {
+    public Room createRoom(RoomRequestDTO roomRequestDTO) {
+        Room room = roomMapper.toRoom(roomRequestDTO);
         return roomRepository.save(room);
     }
 
-    public Room updateRoom(Long id, Room roomDetails) {
+    public Room updateRoom(Long id, RoomRequestDTO roomRequestDTO) {
         return roomRepository.findById(id)
-                .map(room ->{
-                    room.setName(roomDetails.getName());
-                    room.setCapacity(roomDetails.getCapacity());
-                    room.setResources(roomDetails.getResources());
+                .map(room -> {
+                    room.setName(roomRequestDTO.getName());
+                    room.setCapacity(roomRequestDTO.getCapacity());
+                    room.setResources(roomRequestDTO.getResources());
                     return roomRepository.save(room);
                 }).orElseThrow(() -> new RuntimeException("Sala não foi encontrada"));
     }

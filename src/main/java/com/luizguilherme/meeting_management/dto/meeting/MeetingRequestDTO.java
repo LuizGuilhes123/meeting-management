@@ -1,4 +1,4 @@
-package com.luizguilherme.meeting_management.dto;
+package com.luizguilherme.meeting_management.dto.meeting;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

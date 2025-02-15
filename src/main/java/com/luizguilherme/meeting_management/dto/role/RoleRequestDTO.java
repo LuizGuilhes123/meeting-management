@@ -1,4 +1,4 @@
-package com.luizguilherme.meeting_management.dto;
+package com.luizguilherme.meeting_management.dto.role;
 
 import com.luizguilherme.meeting_management.model.Role.RoleName;
 import lombok.Getter;

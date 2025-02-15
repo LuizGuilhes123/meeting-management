@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.service;
 
-import com.luizguilherme.meeting_management.dto.RoleRequestDTO;
-import com.luizguilherme.meeting_management.dto.RoleResponseDTO;
+import com.luizguilherme.meeting_management.dto.role.RoleRequestDTO;
+import com.luizguilherme.meeting_management.dto.role.RoleResponseDTO;
 import com.luizguilherme.meeting_management.mapper.RoleMapper;
 import com.luizguilherme.meeting_management.model.Role;
 import com.luizguilherme.meeting_management.model.Role.RoleName;

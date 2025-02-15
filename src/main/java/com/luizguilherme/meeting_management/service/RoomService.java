@@ -1,6 +1,6 @@
 package com.luizguilherme.meeting_management.service;
 
-import com.luizguilherme.meeting_management.dto.RoomRequestDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomRequestDTO;
 import com.luizguilherme.meeting_management.mapper.RoomMapper;
 import com.luizguilherme.meeting_management.model.Room;
 import com.luizguilherme.meeting_management.repository.ReservationRepository;

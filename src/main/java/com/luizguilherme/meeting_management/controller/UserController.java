@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.controller;
 
-import com.luizguilherme.meeting_management.dto.UserRequestDTO;
-import com.luizguilherme.meeting_management.dto.UserResponseDTO;
+import com.luizguilherme.meeting_management.dto.user.UserRequestDTO;
+import com.luizguilherme.meeting_management.dto.user.UserResponseDTO;
 import com.luizguilherme.meeting_management.mapper.UserMapper;
 import com.luizguilherme.meeting_management.model.User;
 import com.luizguilherme.meeting_management.service.UserService;

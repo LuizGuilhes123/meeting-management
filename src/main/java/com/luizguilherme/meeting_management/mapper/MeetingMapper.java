@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.mapper;
 
-import com.luizguilherme.meeting_management.dto.MeetingRequestDTO;
-import com.luizguilherme.meeting_management.dto.MeetingResponseDTO;
+import com.luizguilherme.meeting_management.dto.meeting.MeetingRequestDTO;
+import com.luizguilherme.meeting_management.dto.meeting.MeetingResponseDTO;
 import com.luizguilherme.meeting_management.model.Meeting;
 import com.luizguilherme.meeting_management.model.User;
 

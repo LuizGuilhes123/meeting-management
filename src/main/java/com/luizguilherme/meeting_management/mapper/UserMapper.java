@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.mapper;
 
-import com.luizguilherme.meeting_management.dto.UserRequestDTO;
-import com.luizguilherme.meeting_management.dto.UserResponseDTO;
+import com.luizguilherme.meeting_management.dto.user.UserRequestDTO;
+import com.luizguilherme.meeting_management.dto.user.UserResponseDTO;
 import com.luizguilherme.meeting_management.model.User;
 
 public class UserMapper {

@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.controller;
 
-import com.luizguilherme.meeting_management.dto.RoleRequestDTO;
-import com.luizguilherme.meeting_management.dto.RoleResponseDTO;
+import com.luizguilherme.meeting_management.dto.role.RoleRequestDTO;
+import com.luizguilherme.meeting_management.dto.role.RoleResponseDTO;
 import com.luizguilherme.meeting_management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

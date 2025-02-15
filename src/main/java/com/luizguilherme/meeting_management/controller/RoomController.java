@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.controller;
 
-import com.luizguilherme.meeting_management.dto.RoomRequestDTO;
-import com.luizguilherme.meeting_management.dto.RoomResponseDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomRequestDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomResponseDTO;
 import com.luizguilherme.meeting_management.mapper.RoomMapper;
 import com.luizguilherme.meeting_management.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.mapper;
 
-import com.luizguilherme.meeting_management.dto.ReservationRequestDTO;
-import com.luizguilherme.meeting_management.dto.ReservationResponseDTO;
+import com.luizguilherme.meeting_management.dto.reservation.ReservationRequestDTO;
+import com.luizguilherme.meeting_management.dto.reservation.ReservationResponseDTO;
 import com.luizguilherme.meeting_management.model.Reservation;
 import com.luizguilherme.meeting_management.model.Room;
 

@@ -1,4 +1,4 @@
-package com.luizguilherme.meeting_management.dto;
+package com.luizguilherme.meeting_management.dto.meeting;
 
 import lombok.Getter;
 import lombok.Setter;

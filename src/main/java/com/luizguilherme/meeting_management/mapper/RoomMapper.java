@@ -1,7 +1,7 @@
 package com.luizguilherme.meeting_management.mapper;
 
-import com.luizguilherme.meeting_management.dto.RoomRequestDTO;
-import com.luizguilherme.meeting_management.dto.RoomResponseDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomRequestDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomResponseDTO;
 import com.luizguilherme.meeting_management.model.Room;
 import org.springframework.stereotype.Component;
 

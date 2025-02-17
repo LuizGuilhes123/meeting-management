@@ -16,8 +16,16 @@ public class MeetingService {
     @Autowired
     private MeetingRepository meetingRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public Meeting scheduleMeeting(Meeting meeting) {
-        return meetingRepository.save(meeting);
+        Meeting savedMeeting = meetingRepository.save(meeting);
+
+        String emailContent = "Sua reunião foi agendada para: " + meeting.getStartTime();
+        emailService.sendEmail(meeting.getOrganizer().getEmail(), "Reunião Agendada", emailContent);
+
+        return savedMeeting;
     }
 
     public List<Meeting> getMeetingsByRoom(String room, LocalDateTime startTime, LocalDateTime endTime) {
@@ -31,6 +39,10 @@ public class MeetingService {
             Meeting meeting = meetingOptional.get();
             if (meeting.getOrganizer().equals(currentUser) || isUserAdmin(currentUser)) {
                 meetingRepository.deleteById(id);
+
+                emailService.sendEmail(meeting.getOrganizer().getEmail(), "Reunião Cancelada",
+                        "Sua reunião foi cancelada para: " + meeting.getStartTime());
+
             } else {
                 throw new RuntimeException("Você não tem permissão para cancelar esta reunião");
             }

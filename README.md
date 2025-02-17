@@ -1,4 +1,3 @@
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -38,7 +37,7 @@
 
 ## Sobre o Projeto
 
-O Sistema de Gerenciamento de Reuniões e Salas de Conferência foi desenvolvido para facilitar o agendamento e gerenciamento de salas de conferência para reuniões, eventos corporativos e outras necessidades empresariais.
+O Sistema de Gerenciamento de Reuniões e Salas de Conferência foi desenvolvido para facilitar o agendamento e gerenciamento de salas de conferência para reuniões, eventos corporativos e outras necessidades empresariais. Agora, com a adição de envio de e-mails para notificações e o uso de DTOs e Mappers, o sistema está mais robusto e escalável.
 
 ## Tecnologias Utilizadas
 
@@ -48,6 +47,8 @@ As principais tecnologias utilizadas no projeto são:
 - **PostgreSQL** - Banco de dados utilizado para armazenar as informações.
 - **Lombok** - Biblioteca para facilitar a criação de código repetitivo como getters, setters, e construtores.
 - **Arquitetura em Camadas** - MVC (Model-View-Controller) e Clean Architecture para garantir separação de responsabilidades.
+- **Mockito** - Framework para testes unitários.
+- **DTO e Mapper** - Usado para transferir dados de maneira eficiente entre as camadas do sistema.
 
 ## Iniciando o Projeto
 
@@ -63,29 +64,33 @@ Para rodar o projeto localmente, é necessário ter os seguintes itens instalado
 
 1. Clone o repositório
    ```sh
-   git clone https://github.com/LuizGuilhes123/sistema-reunioes.git
-   ```
-2. Crie um banco de dados PostgreSQL
-3. Atualize o arquivo `application.properties` com suas credenciais do banco de dados
-4. Execute o projeto
-   ```sh
-   ./mvnw spring-boot:run
-   ```
+   git clone https://github.com/LuizGuilhes123/sistema-reunioes.git```
 
-## Uso
+2. Passos para Configuração
+
+. Crie um banco de dados PostgreSQL.
+. Atualize o arquivo `application.properties` com suas credenciais do banco de dados e configurações de e-mail.
+. Execute o projeto:
+   `./mvnw spring-boot:run`
+  
+### Uso
 
 Uma vez que o projeto está rodando, você pode acessar as seguintes funcionalidades principais:
 
 - CRUD de Reuniões
 - CRUD de Salas de Conferência
 - Gerenciamento de Reservas
+- Envio de e-mails para notificação de agendamentos e cancelamentos
 - Visualização de Disponibilidade de Salas
 
-## Roadmap
+### Roadmap
 
+- [x] Implementar DTOs e Mappers
+- [x] Adicionar testes unitários com Mockito
+- [x] Implementar envio de e-mails para notificações de reuniões
 - [ ] Implementar autenticação de usuários
 - [ ] Adicionar filtros avançados para pesquisa de salas
-- [ ] Integrar notificações por email para lembretes de reuniões
+- [ ] Integrar notificações por e-mail para lembretes de reuniões
 
 ## Contribuições
 

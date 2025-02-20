@@ -1,6 +1,8 @@
 package com.luizguilherme.meeting_management.service;
 
 import com.luizguilherme.meeting_management.dto.room.RoomRequestDTO;
+import com.luizguilherme.meeting_management.dto.room.RoomSearchDTO;
+import com.luizguilherme.meeting_management.filter.RoomFilters;
 import com.luizguilherme.meeting_management.mapper.RoomMapper;
 import com.luizguilherme.meeting_management.model.Room;
 import com.luizguilherme.meeting_management.repository.ReservationRepository;
@@ -8,6 +10,7 @@ import com.luizguilherme.meeting_management.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -36,6 +39,17 @@ public class RoomService {
 
     public Optional<Room> getRoomById(Long id) {
         return roomRepository.findById(id);
+    }
+
+    public List<Room> searchRooms(RoomSearchDTO searchDTO) {
+        return roomRepository.findAll(
+                Specification
+                        .where(RoomFilters.hasCapacity(searchDTO.getCapacity()))
+                        .and(RoomFilters.isAvailableBetween(searchDTO.getAvailableFrom(), searchDTO.getAvailableUntil()))
+                        .and(RoomFilters.hasLocation(searchDTO.getLocation()))
+                        .and(RoomFilters.hasProjector(searchDTO.getHasProjector()))
+                        .and(RoomFilters.hasSoundSystem(searchDTO.getHasSoundSystem()))
+        );
     }
 
     public Room createRoom(RoomRequestDTO roomRequestDTO) {

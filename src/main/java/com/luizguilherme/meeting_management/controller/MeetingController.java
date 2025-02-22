@@ -3,6 +3,7 @@ package com.luizguilherme.meeting_management.controller;
 import com.luizguilherme.meeting_management.model.Meeting;
 import com.luizguilherme.meeting_management.model.User;
 import com.luizguilherme.meeting_management.service.MeetingService;
+import com.luizguilherme.meeting_management.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,6 +23,9 @@ public class MeetingController {
 
     @Autowired
     private MeetingService meetingService;
+
+    @Autowired
+    private UserService userService;
 
     @Operation(summary = "Schedule a new meeting", description = "Creates and schedules a new meeting.")
     @ApiResponses(value = {
@@ -61,5 +65,23 @@ public class MeetingController {
             @Parameter(description = "User who is requesting the cancellation") @AuthenticationPrincipal User currentUser) {
         meetingService.cancelMeeting(id, currentUser);
         return ResponseEntity.noContent().build();
+    }
+
+    // Nova rota para busca de reuniões filtradas
+    @Operation(summary = "Search meetings with filters", description = "Search meetings by applying dynamic filters such as title, time range, and organizer.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Meetings fetched successfully", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Invalid filter parameters", content = @Content)
+    })
+    @GetMapping("/search")
+    public ResponseEntity<List<Meeting>> searchMeetings(
+            @Parameter(description = "Title of the meeting") @RequestParam(required = false) String title,
+            @Parameter(description = "Start time for the search range") @RequestParam(required = false) LocalDateTime startTime,
+            @Parameter(description = "End time for the search range") @RequestParam(required = false) LocalDateTime endTime,
+            @Parameter(description = "ID of the organizer") @RequestParam(required = false) Long organizerId) {
+
+        User organizer = organizerId != null ? userService.getUserById(organizerId) : null;
+        List<Meeting> meetings = meetingService.getFilteredMeetings(title, startTime, endTime, organizer);
+        return ResponseEntity.ok(meetings);
     }
 }
